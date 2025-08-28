@@ -8,14 +8,17 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
-  // Fetch cart items to calculate total quantity
+  // Fetch cart items from deployed backend
   const fetchCartCount = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/cart");
+      const res = await axios.get(
+        "https://fresh-basket-backend.onrender.com/api/cart"
+      );
       const totalItems = res.data.reduce((acc, item) => acc + item.quantity, 0);
       setCartCount(totalItems);
     } catch (err) {
       console.error("Error fetching cart count:", err);
+      setCartCount(0); // fallback if API fails
     }
   };
 
@@ -26,7 +29,7 @@ const Header = () => {
   return (
     <nav className="bg-black shadow-md px-4 sm:px-10 py-4">
       <div className="flex justify-between items-center">
-        {/* Logo with Image + Text */}
+        {/* Logo */}
         <div className="flex items-center space-x-2">
           <img
             src="/apple.jpeg" 
@@ -54,7 +57,7 @@ const Header = () => {
             <Link to="/checkout">Checkout</Link>
           </li>
 
-          {/* 🛒 Cart Icon with Counter */}
+          {/* Cart Icon */}
           <li className="relative">
             <Link to="/cart" className="flex items-center">
               <FaShoppingCart className="text-xl" />
@@ -85,7 +88,7 @@ const Header = () => {
           <li><Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link></li>
           <li><Link to="/checkout" onClick={() => setIsOpen(false)}>Checkout</Link></li>
           
-          {/* Cart in mobile menu */}
+          {/* Cart Icon in mobile menu */}
           <li className="relative">
             <Link to="/cart" className="flex items-center" onClick={() => setIsOpen(false)}>
               <FaShoppingCart className="text-xl" />

@@ -7,13 +7,14 @@ const Banner = () => {
   const fullText = "Fresh & Organic Fruits";
   const [typedText, setTypedText] = useState("");
 
+  // Typewriter effect
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
       setTypedText(fullText.slice(0, index + 1));
       index++;
       if (index === fullText.length) clearInterval(interval);
-    }, 150); // typing speed in ms
+    }, 150);
     return () => clearInterval(interval);
   }, []);
 
@@ -22,12 +23,13 @@ const Banner = () => {
       <Header />
       <section
         className="h-[85vh] relative flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/Images/banner6.jpg')" }}
+        style={{ backgroundImage: "url(process.env.PUBLIC_URL + '/Images/banner6.jpg')" }}
       >
+        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-green-50/30 to-white/10"></div>
 
+        {/* Text content */}
         <div className="relative z-10 text-center p-8 sm:p-16">
-          {/* Typewriter Heading */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-green-800 mb-4 drop-shadow-md">
             {typedText}
             <span className="blinking-cursor">|</span>

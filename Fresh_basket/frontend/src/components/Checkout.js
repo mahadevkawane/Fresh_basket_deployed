@@ -10,7 +10,7 @@ const Checkout = () => {
   });
   const [message, setMessage] = useState("");
 
-  // ✅ Fetch cart from deployed backend
+  // Fetch cart items from deployed backend
   const fetchCart = async () => {
     try {
       const res = await axios.get(
@@ -26,7 +26,7 @@ const Checkout = () => {
     fetchCart();
   }, []);
 
-  // ✅ Clear cart after successful order
+  // Clear the cart after successful order
   const clearCart = async () => {
     try {
       await Promise.all(
@@ -42,19 +42,24 @@ const Checkout = () => {
     }
   };
 
-  // ✅ Handle input changes
+  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ Submit order
+  // Submit order
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post(
-        "https://fresh-basket-backend.onrender.com/api/orders",
-        formData
+        "https://fresh-basket-backend.onrender.com/api/checkout",
+        {
+          Name: formData.name,     // match backend keys
+          Address: formData.address,
+          Phone: formData.phone,
+        }
       );
+
       setMessage("✅ Order placed successfully!");
       setFormData({ name: "", address: "", phone: "" });
       clearCart();
@@ -77,7 +82,7 @@ const Checkout = () => {
         <p className="text-center text-gray-600">Your cart is empty.</p>
       ) : (
         <div className="space-y-6 max-w-5xl mx-auto">
-          {/* 🛒 Order Summary */}
+          {/* Cart Summary */}
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
             {cartItems.map((item) => (
@@ -106,7 +111,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          {/* 🧾 Billing Form */}
+          {/* Billing Form */}
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-2xl font-semibold mb-4">Billing Details</h2>
             {message && <p className="text-center mb-4">{message}</p>}

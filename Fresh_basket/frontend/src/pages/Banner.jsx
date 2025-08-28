@@ -23,7 +23,7 @@ const Banner = () => {
       <Header />
       <section
         className="h-[85vh] relative flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url(process.env.PUBLIC_URL + '/Images/banner7.jpg')" }}
+        style={{ backgroundImage: "url(process.env.PUBLIC_URL + 'banner6.jpg')" }}
       >
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-green-50/30 to-white/10"></div>
